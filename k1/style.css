@@ -1,0 +1,31 @@
+#lista {
+    display: flex;
+    gap: 10px;
+    list-style-type: none;
+}
+
+.wyrozniony {
+    background-color: lightgreen;
+}
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    justify-content: center;
+    align-items: center;
+    display: flex;
+    flex-direction: column;
+    text-align: center;
+}
+
+header {
+    padding: 5px;
+}
+
+#lista li {
+    padding: 10px;
+    border: 1px solid gray;
+    border-radius: 10px;
+}
+
+footer {
+    margin-top: 20px;
+}
