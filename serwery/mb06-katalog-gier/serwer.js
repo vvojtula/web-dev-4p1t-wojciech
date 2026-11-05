@@ -3,7 +3,7 @@ import express from "express";
 const app = express();
 
 app.get("/gry", (req, res) => {
-    res.send("Katalog gier planszowych");
+    res.send("Katalog gier planszowych - test nodemona");;
 });
 
 app.listen(3000, () => {
