@@ -3,6 +3,7 @@ import { gry } from "./dane.js";
 
 const app = express();
 
+/** GET / - strona powitalna z listą dostępnych adresów. */
 app.get("/", (req, res) => {
     res.send(`
     <h1>Katalog gier planszowych</h1>
@@ -15,28 +16,26 @@ app.get("/", (req, res) => {
   `);
 });
 
+/** GET /gry - pełna lista gier w katalogu. */
 app.get("/gry", (req, res) => {
     res.json(gry);
 });
 
+/** GET /gry/:id - jedna gra o podanym numerze; 404, gdy takiej nie ma. */
 app.get("/gry/:id", (req, res) => {
-    // Pobieramy parametr i zamieniamy go na liczbę
     const idGry = parseInt(req.params.id, 10);
-
-    // Wyszukiwanie gry za pomocą metody find
     const znalezionaGra = gry.find(g => g.id === idGry);
 
-    // Gdy gry nie ma w tablicy (lub wpisano np. tekst zamiast id)
     if (!znalezionaGra) {
         return res.status(404).json({
             blad: `Nie znaleziono gry o podanym identyfikatorze: ${req.params.id}`
         });
     }
 
-    // Jeśli gra istnieje, zwracamy ją ze statusem 200 (domyślny)
     res.json(znalezionaGra);
 });
 
+/** GET /szukaj?wydawca=&max=&gracze= - filtrowanie katalogu; brak parametrów = cała lista. */
 app.get("/szukaj", (req, res) => {
     const { wydawca, max, gracze } = req.query;
     let wynik = gry;
@@ -58,6 +57,7 @@ app.get("/szukaj", (req, res) => {
     res.json(wynik);
 });
 
+/** GET /statystyki - liczba gier, średnia cena i nazwa najdroższej gry. */
 app.get("/statystyki", (req, res) => {
     const sumaCen = gry.reduce((suma, g) => suma + g.cena, 0);
     const srednia = sumaCen / gry.length;
