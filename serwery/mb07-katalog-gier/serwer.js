@@ -57,6 +57,10 @@ app.post("/echo", (req, res) => {
   res.json({ odebrano: req.body });
 });
 
+app.get("/blad", () => {
+  throw new Error("Testowy błąd");
+});
+
 app.use((req, res) => {
   const czyDane = ["/gry", "/szukaj", "/statystyki"].some((p) =>
     req.url.startsWith(p)
@@ -68,6 +72,11 @@ app.use((req, res) => {
   }
 
   res.status(404).send("<h1>404 – nie ma takiej strony</h1>");
+});
+
+app.use((err, req, res, next) => {
+  console.error("Błąd:", err.message);
+  res.status(500).json({ blad: "Błąd serwera" });
 });
 
 app.listen(3000, () => {
