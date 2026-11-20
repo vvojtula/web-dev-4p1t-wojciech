@@ -3,7 +3,14 @@ import { gry } from "./dane.js";
 
 const app = express();
 
-/** GET / - strona powitalna z listą dostępnych adresów. */
+const logger = (req, res, next) => {
+  req.czasZadania = new Date().toLocaleTimeString("pl-PL");
+  console.log(`[${req.czasZadania}] ${req.method} ${req.url}`);
+  next();
+};
+
+app.use(logger);
+
 app.get("/", (req, res) => {
     res.send(`
     <h1>Katalog gier planszowych</h1>
@@ -16,12 +23,10 @@ app.get("/", (req, res) => {
   `);
 });
 
-/** GET /gry - pełna lista gier w katalogu. */
 app.get("/gry", (req, res) => {
     res.json(gry);
 });
 
-/** GET /gry/:id - jedna gra o podanym numerze; 404, gdy takiej nie ma. */
 app.get("/gry/:id", (req, res) => {
     const idGry = parseInt(req.params.id, 10);
     const znalezionaGra = gry.find(g => g.id === idGry);
@@ -35,7 +40,6 @@ app.get("/gry/:id", (req, res) => {
     res.json(znalezionaGra);
 });
 
-/** GET /szukaj?wydawca=&max=&gracze= - filtrowanie katalogu; brak parametrów = cała lista. */
 app.get("/szukaj", (req, res) => {
     const { wydawca, max, gracze } = req.query;
     let wynik = gry;
@@ -57,7 +61,6 @@ app.get("/szukaj", (req, res) => {
     res.json(wynik);
 });
 
-/** GET /statystyki - liczba gier, średnia cena i nazwa najdroższej gry. */
 app.get("/statystyki", (req, res) => {
     const sumaCen = gry.reduce((suma, g) => suma + g.cena, 0);
     const srednia = sumaCen / gry.length;
