@@ -5,6 +5,10 @@ import routerGier from "./trasy/gry.js";
 
 const app = express();
 
+/**
+ * Loguje każde żądanie w terminalu (godzina, metoda i adres).
+ * Dodaje do obiektu żądania pole `req.czasZadania` (godzina w formacie HH:MM:SS).
+ */
 const logger = (req, res, next) => {
   req.czasZadania = new Date().toLocaleTimeString("pl-PL");
   console.log(`[${req.czasZadania}] ${req.method} ${req.url}`);
@@ -18,6 +22,7 @@ app.use(express.static(path.join(import.meta.dirname, "public")));
 
 app.use("/gry", routerGier);
 
+/** GET /szukaj?wydawca=&max=&gracze= - filtrowanie katalogu; brak parametrów = cała lista. */
 app.get("/szukaj", (req, res) => {
   const { wydawca, max, gracze } = req.query;
   let wynik = gry;
@@ -39,6 +44,7 @@ app.get("/szukaj", (req, res) => {
   res.json(wynik);
 });
 
+/** GET /statystyki - liczba gier, średnia cena, nazwa najdroższej gry oraz czas wygenerowania. */
 app.get("/statystyki", (req, res) => {
   const sumaCen = gry.reduce((suma, g) => suma + g.cena, 0);
   const srednia = sumaCen / gry.length;
@@ -52,11 +58,13 @@ app.get("/statystyki", (req, res) => {
   });
 });
 
+/** POST /echo - odsyła treść żądania; służy do sprawdzania, jak serwer czyta dane. */
 app.post("/echo", (req, res) => {
   console.log(req.body);
   res.json({ odebrano: req.body });
 });
 
+/** GET /blad - celowo zgłasza błąd; służy do sprawdzania obsługi błędów. */
 app.get("/blad", () => {
   throw new Error("Testowy błąd");
 });
