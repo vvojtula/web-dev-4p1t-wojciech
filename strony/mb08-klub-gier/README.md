@@ -17,11 +17,10 @@ Responsywna strona internetowa prezentująca katalog gier, zbudowana z wykorzyst
 ## Struktura projektu
 
 ```text
-├── docs/
-│   └── zrzuty/
-│       ├── waski.png      # zrzut ekranu dla szerokości 400 px
-│       ├── sredni.png     # zrzut ekranu dla szerokości 800 px
-│       └── szeroki.png    # zrzut ekranu dla szerokości 1400 px
+├──zrzuty/
+│  ├── waski.png      # zrzut ekranu dla szerokości 400 px
+│  ├── sredni.png     # zrzut ekranu dla szerokości 800 px
+│  └── szeroki.png    # zrzut ekranu dla szerokości 1400 px
 ├── node_modules/          # pakiety npm (pojawia się po wykonaniu npm install)
 ├── index.html             # główny plik HTML strony
 ├── package.json           # konfiguracja projektu i zależności (Bootstrap)
@@ -40,16 +39,13 @@ Responsywna strona internetowa prezentująca katalog gier, zbudowana z wykorzyst
 
 ## Zrzuty ekranu
 
-![Widok wąski 400 px](docs/zrzuty/waski.png)
+![Widok wąski 400 px](zrzuty/waski.png)
 *Widok mobilny (szerokość 400 px) – układ jednokolumnowy.*
 
-![Widok średni 800 px](docs/zrzuty/sredni.png)
+![Widok średni 800 px](zrzuty/sredni.png)
 *Widok tabletowy (szerokość 800 px) – układ pośredni.*
 
-![Widok szeroki 1400 px](docs/zrzuty/szeroki.png)
+![Widok szeroki 1400 px](zrzuty/szeroki.png)
 *Widok desktopowy (szerokość 1400 px) – menu boczne i siatka gier w jednym rzędzie.*
 
-## Autor
 
-* **Imię i nazwisko:** [Wpisz swoje imię i nazwisko]
-* **Klasa / Grupa:** [Wpisz klasę lub grupę]
